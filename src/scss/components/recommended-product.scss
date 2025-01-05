@@ -1,0 +1,17 @@
+.recommended-item {
+
+    .hover-div {
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%);
+    }
+
+    &:hover {
+        .hover-div {
+            button {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+}

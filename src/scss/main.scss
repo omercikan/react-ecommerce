@@ -1,4 +1,5 @@
 @use 'base.scss';
-@use 'loading-screen.scss';
+@use 'components/loading-screen.scss';
 @use 'pages/home.scss';
 @use 'layouts/header.scss';
+@use 'components/recommended-product.scss'

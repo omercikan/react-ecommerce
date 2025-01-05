@@ -15,8 +15,8 @@ const ResponsiveHeader: React.FC<ResponsiveHeaderProps> = ({isOpenMenu, setMenu}
 
   return (
     <div className='responsive-header flex gap-5'>
-        <RxHamburgerMenu size={28} color='white'/>
-        <IoSearchOutline size={28} color='white' onClick={handleMenu}/>
+        {/* <RxHamburgerMenu size={28} color='white'/> */}
+        <IoSearchOutline size={28} color='white' onClick={handleMenu} cursor='pointer' />
     </div>
   )
 }
