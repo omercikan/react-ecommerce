@@ -5,8 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    colors: {
-      'midnight': '#161880',
+    container: {
+      padding: {
+        DEFAULT: '0rem',
+        sm: '2rem',
+        lg: '1rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      },
     },
     extend: {},
   },
