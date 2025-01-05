@@ -1,0 +1,116 @@
+@media only screen and (max-width: 1024px) {
+    .main-header {
+        background-color: #fff;
+        border-bottom: 1px solid #dedede;
+    }
+
+    .header-wrapper {
+        .responsive-header {
+
+            svg {
+                color: #000 !important;
+            }
+        }
+
+        .header-brand {
+            order: 1;
+            text-align: end;
+            color: #000;
+        }
+        
+        .search-container {
+            order: 0;
+            position: fixed;
+            top: 0;
+            left: -100%;
+            height: 100%;
+            padding: 1rem;
+            background-color: #fff;
+            border-right: 1px solid #dedede;
+            width: 50%;
+            opacity: 0;
+            transition: all .5s ease;
+            z-index: 20;
+
+            &.active {
+                opacity: 1;
+                left: 0%;
+            }
+
+            input {
+                border-radius: 0;
+                border-bottom: 1px solid #dedede;
+                background-color: #f9f9f9;
+            }
+
+            .search-result-menu {
+
+                div {
+                    border-radius: 0;
+                    top: 115px;
+                    left: 0;
+                    border: none;
+                }
+            }
+        }
+
+        .header-user-tab {
+            order: 2;
+
+            svg,
+            li {
+                color: #000;
+            }
+
+            span {
+                display: none;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .responsive-header {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 545px) {
+    .search-container {
+        width: 75% !important;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .search-container {
+        width: 90% !important;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .header-brand {
+        font-size: 30px;
+        text-align: center !important;
+        flex: unset;
+    }
+
+    .responsive-header {
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .header-user-tab {
+        flex: unset;
+
+        ul {
+            gap: 20px;
+
+            svg {
+                width: 20px;
+                height: 20px;
+            } 
+        }
+    }
+}
