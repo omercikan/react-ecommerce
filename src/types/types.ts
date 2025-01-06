@@ -20,3 +20,7 @@ export type ProductListData = {
 export type productItemPropsType = {
     item: Product;
 }
+
+export type productDetailComponentsProps = {
+    matchedProduct: Product | undefined;
+}
