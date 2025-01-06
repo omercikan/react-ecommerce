@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/Home";
-import ProductDetail from "../pages/ProductDetail";
+import { lazy } from "react";
+
+const Home = lazy(() => import("../pages/Home"));
+const ProductDetail = lazy(() => import("../pages/ProductDetail"))
 
 export const MainRouter = createBrowserRouter([
     {
