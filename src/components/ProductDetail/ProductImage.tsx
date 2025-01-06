@@ -4,7 +4,7 @@ import { productDetailComponentsProps } from '../../types/types';
 
 const ProductImage: React.FC<productDetailComponentsProps> = ({matchedProduct}) => {
   return (
-    <div className="detail-image-container relative flex-[40%]">
+    <div className="detail-image-container relative -z-10 flex-[40%]">
         {matchedProduct?.image ? (
           <React.Fragment>
             <figure className='border p-16 rounded-lg bg-white mb-5 max-sm:mb-0'>

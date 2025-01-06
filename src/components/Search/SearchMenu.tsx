@@ -21,7 +21,7 @@ const SearchMenu: React.FC<searchMenuProps> = ({isOpenSearchMenu, filteredSearch
             <React.Fragment>
                 <h2 className='border-b pb-3 mb-3 font-extrabold uppercase text-sm'>Popular Products</h2>
 
-                <ul className='grid grid-cols-3 gap-3 overflow-x-auto max-lg:flex'>
+                <ul className='grid grid-cols-3 gap-3 overflow-x-auto max-lg:flex' style={{scrollbarWidth: "thin"}}>
                     {
                         slicedData?.map((product) => (
                             <RecommendedProduct item={product} key={product.id}/>
@@ -62,7 +62,7 @@ const SearchMenu: React.FC<searchMenuProps> = ({isOpenSearchMenu, filteredSearch
         <React.Fragment>
             {isOpenSearchMenu && (
                 <div className="search-result-menu">
-                    <div className="bg-white rounded-[5px] p-[18px] absolute top-[125%] w-full border z-40" onClick={(e) => e.stopPropagation()}>
+                    <div className="bg-white rounded-[5px] p-[18px] absolute top-[125%] w-full border" onClick={(e) => e.stopPropagation()}>
                     
                         {searchMenuContent}
                     </div>

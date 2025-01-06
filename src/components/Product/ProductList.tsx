@@ -12,7 +12,7 @@ const ProductList: React.FC = () => {
 
     if(data) {
         dataContent = (
-            <ul className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-5 my-5 max-sm:flex max-sm:flex-wrap mx-4'>
+            <ul className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-5 my-5 max-sm:flex max-sm:flex-wrap mx-4 mt-[122px] max-lg:mt-[111px]'>
                 {[...data].sort(() => .5 - Math.random()).map((product) => (
                     <ProductItem item={product} key={product.id} />
                 ))} 
@@ -22,7 +22,7 @@ const ProductList: React.FC = () => {
 
     if(isFetching) {
         dataContent = ( 
-            <ul className='my-5 mx-4 loading-list'>  
+            <ul className='my-5 mx-4 loading-list mt-[122px] max-lg:mt-[111px]'>  
                 {
                     <Skeleton variant='rounded' animation="wave" className='loading-screen'/>
                 }
