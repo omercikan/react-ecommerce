@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { RxHamburgerMenu } from "react-icons/rx";
+// import { RxHamburgerMenu } from "react-icons/rx";
 import { IoSearchOutline } from "react-icons/io5";
 
 type ResponsiveHeaderProps = {

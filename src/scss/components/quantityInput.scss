@@ -1,0 +1,26 @@
+.quantity-input {
+    background-color: red;
+    width: 100%;
+    text-align: center;
+    outline: none;
+    background-color: transparent;
+
+    &::-webkit-inner-spin-button, 
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;;
+        appearance: none;
+    }
+}
+
+.quantity-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 9px 10px;
+    border: 1px solid #c7c7c7;
+    border-radius: 25px;
+    width: 110px;
+
+    button {
+        outline: none;
+    }
+}
