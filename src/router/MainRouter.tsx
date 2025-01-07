@@ -10,7 +10,7 @@ export const MainRouter = createBrowserRouter([
         path: "/", element: <MainLayout />,
         children: [
             { index: true, element: <Home /> },
-            { path: '/product-detail/:id', element: <ProductDetail /> } 
+            { path: '/product-detail/:id', element: <ProductDetail /> }
         ]
     }
 ])

@@ -1,11 +1,12 @@
 import React from "react";
 import Header from "./Header/Header";
 import { Outlet } from "react-router-dom";
+import ShoppingCart from "../components/ShoppingCart/ShoppingCart";
 
 const MainLayout: React.FC = () => {
   return (
     <React.Fragment>
-      <header className="main-header bg-[#161880] py-5 fixed top-0 w-full">
+      <header className="main-header bg-[#161880] py-5 max-sm:py-3 fixed top-0 w-full">
         <div className="container mx-auto max-sm:px-5">
           <Header />
         </div>
@@ -15,6 +16,8 @@ const MainLayout: React.FC = () => {
         <div className="container mx-auto">
           <Outlet />
         </div>
+
+        <ShoppingCart />
       </main>
     </React.Fragment>
   );

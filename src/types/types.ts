@@ -1,26 +1,35 @@
 export interface Product {
-    id: number
-    title: string
-    price: number
-    description: string
-    category: string
-    image: string
-    rating: Rating
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: Rating;
 }
-  
+
 export interface Rating {
-    rate: number
-    count: number
+  rate: number;
+  count: number;
 }
 
 export type ProductListData = {
-    data: Product[];
-}
+  data: Product[];
+};
 
 export type productItemPropsType = {
-    item: Product;
-}
+  item: Product;
+};
 
 export type productDetailComponentsProps = {
-    matchedProduct: Product | undefined;
+  matchedProduct: Product | undefined;
+};
+
+export interface CartItemInterface {
+  id: number;
+  productImage: string;
+  productQuantity: number;
+  productSize: string;
+  productTitle: string;
+  productPrice: number;
 }
