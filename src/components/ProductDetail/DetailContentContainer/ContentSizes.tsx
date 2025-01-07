@@ -48,7 +48,7 @@ const ContentSizes: React.FC<productDetailContentSizesProps> = ({matchedProduct,
             <input type="radio" id="size-xl-option" name='size' className='hidden' value="XL" onChange={(e) => setSelectSize(e.target.value)}/>            
             </div>
         </fieldset>
-        ) : <Skeleton width={250} height={50}/> }
+        ) : <Skeleton className='w-[250px] h-[50px] max-sm:w-full'/> }
     </div>
   )
 }

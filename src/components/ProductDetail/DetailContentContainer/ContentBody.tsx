@@ -12,7 +12,7 @@ const ContentBody: React.FC<productDetailComponentsProps> = ({
           {matchedProduct?.title}
         </strong>
       ) : (
-        <Skeleton width={300} />
+        <Skeleton className="w-[300px] max-sm:w-full" />
       )}
 
       {matchedProduct?.description ? (

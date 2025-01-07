@@ -14,7 +14,7 @@ const Breadcrumb: React.FC<productDetailComponentsProps> = ({matchedProduct}) =>
             <span> <GoChevronRight /> </span>
             <li className='text-ellipsis whitespace-nowrap overflow-hidden'> {matchedProduct?.title} </li>
             </React.Fragment>
-        ) : <Skeleton className='w-2/12' animation="wave"/>}
+        ) : <Skeleton className='w-2/6' animation="wave"/>}
         </ol>
     </div>
   )
