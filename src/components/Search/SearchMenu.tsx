@@ -6,7 +6,7 @@ import { Product } from '../../types/types';
 
 type searchMenuProps = {
     isOpenSearchMenu: boolean;
-    filteredSearchData: Product[];
+    filteredSearchData: Product[] | undefined;
     searchValue: string;
 }
 
@@ -40,7 +40,7 @@ const SearchMenu: React.FC<searchMenuProps> = ({isOpenSearchMenu, filteredSearch
         searchMenuContent = (
             <React.Fragment>
                 {
-                    filteredSearchData?.length > 0 ? (
+                    filteredSearchData!.length > 0 ? (
                         <React.Fragment>
                             <h2 className='border-b pb-3 mb-3 font-extrabold uppercase text-sm'>Search Results</h2>
 

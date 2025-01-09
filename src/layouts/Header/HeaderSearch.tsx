@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoCloseOutline } from "react-icons/io5";
 import SearchMenu from "../../components/Search/SearchMenu";
@@ -7,28 +7,43 @@ import { useFetchProductsQuery } from "../../redux/Api/ProductApi";
 type HeaderSearchProps = {
   isOpenMenu: string;
   setMenu: Dispatch<SetStateAction<string>>;
-}
+};
 
-const HeaderSearch: React.FC<HeaderSearchProps> = ({isOpenMenu, setMenu}) => {
+const HeaderSearch: React.FC<HeaderSearchProps> = ({ isOpenMenu, setMenu }) => {
   const [searchMenu, setSearchMenu] = useState<boolean>(false);
   const [searchValue, setSearcValue] = useState<string>("");
   const { data } = useFetchProductsQuery();
-  const filteredSearch: any = data?.filter((product) => product.title.trim().toLowerCase().includes(searchValue.trim().toLowerCase()));
 
   //! Click the any element and closed search menu
-  window.addEventListener('click', () => {
-    setSearchMenu(false);
-    setMenu("");
-  })
+  useEffect(() => {
+    const handleClick = () => {
+      setSearchMenu(false);
+      setMenu("");
+    };
+
+    window.addEventListener("click", handleClick);
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  }, []);
 
   //!Click input open the search menu
   const handleOpenMenu = (e: React.MouseEvent<HTMLInputElement>) => {
     setSearchMenu(true);
     e.stopPropagation();
-  }
+  };
+
+  const filteredSearch = useMemo(() => {
+    return data?.filter((product) =>
+      product.title.trim().toLowerCase().includes(searchValue.trim().toLowerCase())
+    );
+  }, [data, searchValue]);
 
   return (
-    <div className={`search-container relative flex-[1.6] ${isOpenMenu}`} onClick={(e) => e.stopPropagation()}>
+    <div
+      className={`search-container relative flex-[1.6] ${isOpenMenu}`}
+      onClick={(e) => e.stopPropagation()}
+    >
       <div className="lg:hidden flex items-center justify-between mb-3">
         <h1 className="font-[600] text-lg">Search</h1>
         <IoCloseOutline size={24} onClick={() => setMenu("")} />
@@ -43,6 +58,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({isOpenMenu, setMenu}) => {
           value={searchValue}
           onChange={(e) => data && setSearcValue(e.target.value)}
         />
+
         <IoSearchOutline
           className="absolute top-1/2 right-4 -translate-y-1/2"
           size={30}
@@ -51,7 +67,11 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({isOpenMenu, setMenu}) => {
       </div>
 
       <div className="search-menu">
-        <SearchMenu isOpenSearchMenu={searchMenu} filteredSearchData={filteredSearch} searchValue={searchValue} />
+        <SearchMenu
+          isOpenSearchMenu={searchMenu}
+          filteredSearchData={filteredSearch}
+          searchValue={searchValue}
+        />
       </div>
     </div>
   );

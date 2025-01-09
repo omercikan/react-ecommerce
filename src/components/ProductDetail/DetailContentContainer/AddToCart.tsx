@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { FaRegHeart } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/store';
@@ -19,7 +19,7 @@ const AddToCart: React.FC<addToCartProps> = ({incomingID, matchedProduct, quanti
     const { cart } = useSelector((state: RootState) => state.cartSlice);
     const inCart = cart.find((product) => product.id === incomingID);
     const [adds, setAdds] = useState<boolean>(false);
-
+    
     const handleAddCart = () => {
        setAdds(true);
        setTimeout(() => {
@@ -41,17 +41,25 @@ const AddToCart: React.FC<addToCartProps> = ({incomingID, matchedProduct, quanti
         }, 1000);
     }
 
+    const addsClass = useMemo(() => {
+        return !adds && 'hover:bg-white hover:text-black'
+    }, [adds]);
+    
+    const CircularProgres = useMemo(() => {
+        return adds ? <CircularProgress size={20} style={{color: "#fff"}} /> : "Add To Cart";
+    }, [adds])
+
     return (
         <React.Fragment>
             {matchedProduct && (
                 <div className="flex items-center gap-5">
                     <button
                     className={`bg-[#232323] 
-                    text-white py-3 px-20 rounded-full my-10 ${!adds && 'hover:bg-white hover:text-black'} border border-black transition duration-500 max-sm:px-16 disabled:bg-gray-400 disabled:border-gray-400 disabled:hover:text-white`}
+                    text-white py-3 px-20 rounded-full my-10 ${addsClass} border border-black transition duration-500 max-sm:px-16 disabled:bg-gray-400 disabled:border-gray-400 disabled:hover:text-white`}
                     onClick={handleAddCart}
                     disabled={!!inCart}
                     >
-                    { adds ? <CircularProgress size={20} style={{color: "#fff"}} /> : "Add To Cart" }
+                    {CircularProgres}
                     </button>
 
                     <button className="border p-3 rounded-full hover:bg-red-400 hover:border-red-400 duration-500 hover:last:text-red-100">

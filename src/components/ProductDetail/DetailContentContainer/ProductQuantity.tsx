@@ -1,10 +1,10 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, memo, SetStateAction } from "react";
 import { GoPlus } from "react-icons/go";
 import { LuMinus } from "react-icons/lu";
 
 type ProductQuantityProps = {
-    quantity: number;
-    setQuantity:Dispatch<SetStateAction<number>>;
+  quantity: number;
+  setQuantity:Dispatch<SetStateAction<number>>;
 }
 
 const ProductQuantity: React.FC<ProductQuantityProps> = ({quantity, setQuantity}) => {
@@ -34,4 +34,4 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({quantity, setQuantity}
   );
 };
 
-export default ProductQuantity;
+export default memo(ProductQuantity);

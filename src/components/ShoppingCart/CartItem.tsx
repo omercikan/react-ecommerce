@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { CartItemInterface } from "../../types/types";
 import { Link } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
@@ -13,23 +13,28 @@ type cartItemProps = {
 };
 
 const CartItem: React.FC<cartItemProps> = ({ product }) => {
-  const { id, productImage, productQuantity, productSize, productTitle, productPrice, } = product;
+  const { id, productImage, productQuantity, productSize, productTitle, productPrice } = product;
   const { cart } = useSelector((state: RootState) => state.cartSlice);
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleIncrease = () => {
+  const handleIncrease = useCallback(() => {
     dispatch(
-      IncreaseQuantity({...product, productQuantity: productQuantity < 20 ? productQuantity + 1 : productQuantity}));
-  };
-
-  const handleDecrease = () => {
-    dispatch(
-        DecreaseQuantity({...product, productQuantity: productQuantity >= 2 ? productQuantity - 1 : productQuantity})
+      IncreaseQuantity({...product, productQuantity: productQuantity < 20 ? productQuantity + 1 : productQuantity })
     )
-  }
+  }, [dispatch, product, productQuantity])
+
+  const handleDecrease = useCallback(() => {
+    dispatch(
+      DecreaseQuantity({...product, productQuantity: product.productQuantity >= 2 ? productQuantity - 1 : productQuantity})
+    )
+  }, [dispatch, product, productQuantity]);
+
+  const cartItemClass = useMemo(() => {
+    return cart.length > 1 ? 'border-b py-6' : 'py-6'
+  }, [cart.length > 1]);
 
   return (
-    <li className={`${cart.length > 1 && 'border-b'} py-6`}>
+    <li className={cartItemClass}>
       <div className="cart-item-wrapper">
         <div className="flex gap-6">
           <div className="cart-item-image flex-[30%]">
@@ -60,20 +65,20 @@ const CartItem: React.FC<cartItemProps> = ({ product }) => {
             <div className="cart-item-quantity">
                 <div className="flex items-center justify-between">
                     <div className="quantity-wrapper mt-4">
-                        <button onClick={handleDecrease}>
+                      <button onClick={handleDecrease}>
                         <LuMinus size={18} color="black" />
-                        </button>
+                      </button>
 
-                        <input
+                      <input
                         type="text"
                         value={productQuantity}
                         readOnly
                         className="quantity-input text-black"
-                        />
+                      />
 
-                        <button onClick={handleIncrease}>
+                      <button onClick={handleIncrease}>
                         <GoPlus color="black" />
-                        </button>
+                      </button>
                     </div>
 
                     <IoCloseOutline color="black" className="mt-4" cursor="pointer" size={28} onClick={() => dispatch(removeCart(id))}/>

@@ -21,10 +21,10 @@ const ProductDetail: React.FC = () => {
     <React.Fragment>
       {
         isError ? <ApiErrorHandler /> : (
-        <div className="container mt-[122px] max-lg:mt-[111px] px-4">
+        <div className="mt-[122px] max-lg:mt-[111px] px-4">
           <Breadcrumb matchedProduct={matchedProduct} />
 
-          <div className="product-detail-container mt-10">
+          <div className="product-detail-container mt-10 container mx-auto">
             <div className="product-detail-container__wrapper">
               <div className="flex max-lg:flex-col gap-x-10 gap-y-5">
                 <ProductImage matchedProduct={matchedProduct} />

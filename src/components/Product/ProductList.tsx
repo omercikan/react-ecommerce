@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, useMemo } from 'react'
 import { useFetchProductsQuery } from '../../redux/Api/ProductApi'
 import ProductItem from './ProductItem';
 
@@ -8,21 +8,27 @@ const ApiErrorHandler = lazy(() => import("../ApiErrorHandler"))
 const ProductList: React.FC = () => {
     const { data, isFetching, isError } = useFetchProductsQuery();
 
+    const SortedProducts = useMemo(() => {
+        return (
+           data && [...data].sort(() => .5 - Math.random()).map((product) => (
+                <ProductItem  item={product} key={product.id} />
+            ))
+        ) 
+    }, [data]);
+
     let dataContent;
 
     if(data) {
         dataContent = (
-            <ul className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-5 my-5 max-sm:flex max-sm:flex-wrap mx-4 mt-[122px] max-lg:mt-[111px]'>
-                {[...data].sort(() => .5 - Math.random()).map((product) => (
-                    <ProductItem item={product} key={product.id} />
-                ))} 
+            <ul className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-5 my-5 max-sm:flex max-sm:flex-wrap mt-[50px] sm:container mx-auto max-sm:mx-4'>
+                {SortedProducts}
             </ul> 
         );
     };
 
     if(isFetching) {
         dataContent = ( 
-            <ul className='my-5 mx-4 loading-list mt-[122px] max-lg:mt-[111px]'>  
+            <ul className='my-5 loading-list mt-[50px] container mx-auto'>  
                 {
                     <Skeleton variant='rounded' animation="wave" className='loading-screen'/>
                 }
@@ -49,4 +55,4 @@ const ProductList: React.FC = () => {
     )
 }
 
-export default ProductList
+export default ProductList;
