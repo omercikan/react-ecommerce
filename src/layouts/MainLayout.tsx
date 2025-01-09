@@ -6,14 +6,14 @@ import ShoppingCart from "../components/ShoppingCart/ShoppingCart";
 const MainLayout: React.FC = () => {
   return (
     <React.Fragment>
-      <header className="main-header bg-[#161880] py-5 max-sm:py-3 fixed top-0 w-full">
+      <header className="main-header bg-[#161880] py-5 max-sm:py-3 fixed top-0 w-full z-20">
         <div className="container mx-auto max-sm:px-5">
           <Header />
         </div>
       </header>
 
       <main>
-        <div className="container mx-auto">
+        <div>
           <Outlet />
         </div>
 

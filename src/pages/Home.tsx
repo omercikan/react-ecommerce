@@ -1,10 +1,13 @@
 import React from 'react'
 import ProductList from '../components/Product/ProductList'
+import SlideImage from '../components/Home/SlideImage'
 
 const Home: React.FC = () => {
   return (
     <div className='home-container-element'>
-        <ProductList />
+      <SlideImage />
+
+      <ProductList />
     </div>
   )
 }
