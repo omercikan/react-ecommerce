@@ -6,7 +6,8 @@ import { addToCart } from '../../../redux/Slices/cartSlice';
 import { Product } from '../../../types/types';
 import CircularProgress from '@mui/material/CircularProgress';
 import { changeOpenModeCart } from '../../../redux/Slices/isOpenCartSlice';
-import { Bounce, toast } from 'react-toastify';
+import { addToLikes } from '../../../redux/Slices/likesSlice';
+import toastify from '../../../customHooks/toastify';
 
 type addToCartProps = {
     incomingID: number;
@@ -18,27 +19,18 @@ type addToCartProps = {
 const AddToCart: React.FC<addToCartProps> = ({incomingID, matchedProduct, quantity, selectSize}) => {
     const dispatch = useDispatch<AppDispatch>();
     const { cart } = useSelector((state: RootState) => state.cartSlice);
+    const { likes } = useSelector((state: RootState) => state.likesSlice);
     const inCart = cart.find((product) => product.id === incomingID);
     const [adds, setAdds] = useState<boolean>(false);
 
-    const AddNotify = () => toast.success('Product Added To Cart', {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        transition: Bounce,
-    });
+    const findLikeItem = likes.find((product) => product.id === matchedProduct?.id);
     
     const handleAddCart = () => {
        setAdds(true);
        
        setTimeout(() => {
             document.body.style.overflowY = "hidden"
-            AddNotify();
+            toastify('Product Added To Cart')
            
             dispatch(
                 addToCart({
@@ -54,6 +46,18 @@ const AddToCart: React.FC<addToCartProps> = ({incomingID, matchedProduct, quanti
             dispatch(changeOpenModeCart());
            setAdds(false);
         }, 1000);
+    }
+
+    const handleAddLikes = () => {
+        if(!findLikeItem) {
+            toastify('Product Added To Likes')
+        } else {
+            toastify("Product Removed From Likes")
+        }
+        
+        dispatch(
+            addToLikes({...matchedProduct!})
+        )
     }
 
     const addsClass = useMemo(() => {
@@ -77,7 +81,13 @@ const AddToCart: React.FC<addToCartProps> = ({incomingID, matchedProduct, quanti
                     {CircularProgres}
                     </button>
 
-                    <button className="border p-3 rounded-full hover:bg-red-400 hover:border-red-400 duration-500 hover:last:text-red-100">
+                    <button 
+                        className={
+                            `border p-3 rounded-full hover:bg-red-400 hover:border-red-400 duration-500 hover:last:text-red-100 
+                            ${findLikeItem && 'bg-red-400 border-red-400 last:text-red-100'}`
+                        }
+                        onClick={handleAddLikes}
+                    >
                         <FaRegHeart size={24} />
                     </button>
                 </div>

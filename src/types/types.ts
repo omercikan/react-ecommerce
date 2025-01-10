@@ -33,3 +33,7 @@ export interface CartItemInterface {
   productTitle: string;
   productPrice: number;
 }
+
+export type likesSliceInitialStateTypes = {
+  likes: Product[];
+}
