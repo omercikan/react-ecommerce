@@ -43,7 +43,7 @@ const SearchMenu: React.FC<searchMenuProps> = ({isOpenSearchMenu, filteredSearch
                     filteredSearchData!.length > 0 ? (
                         <React.Fragment>
                             <h2 className='border-b pb-3 mb-3 font-extrabold uppercase text-sm'>Search Results</h2>
-
+                            
                             <ul className='flex gap-3 overflow-x-auto' style={{scrollbarWidth: "thin"}}>
                                 {
                                     filteredSearchData?.map((product) => (

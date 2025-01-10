@@ -14,7 +14,7 @@
     }
 
     .shopping-cart-wrapper {
-        animation: open 1s forwards ease;
+        animation: 1s forwards ease;
 
         @keyframes open {
             from {
@@ -24,7 +24,16 @@
             to {
                 right: 0;
             }
+        }
 
+        @keyframes close {
+            from {
+                right: 0;
+            }
+
+            to {
+                right: -100%;
+            }
         }
     }
 }

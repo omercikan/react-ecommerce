@@ -6,6 +6,7 @@ import { addToCart } from '../../../redux/Slices/cartSlice';
 import { Product } from '../../../types/types';
 import CircularProgress from '@mui/material/CircularProgress';
 import { changeOpenModeCart } from '../../../redux/Slices/isOpenCartSlice';
+import { Bounce, toast } from 'react-toastify';
 
 type addToCartProps = {
     incomingID: number;
@@ -19,10 +20,26 @@ const AddToCart: React.FC<addToCartProps> = ({incomingID, matchedProduct, quanti
     const { cart } = useSelector((state: RootState) => state.cartSlice);
     const inCart = cart.find((product) => product.id === incomingID);
     const [adds, setAdds] = useState<boolean>(false);
+
+    const AddNotify = () => toast.success('Product Added To Cart', {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+    });
     
     const handleAddCart = () => {
        setAdds(true);
+       
        setTimeout(() => {
+            document.body.style.overflowY = "hidden"
+            AddNotify();
+           
             dispatch(
                 addToCart({
                     id: incomingID,
@@ -34,9 +51,7 @@ const AddToCart: React.FC<addToCartProps> = ({incomingID, matchedProduct, quanti
                 }),
             )
 
-            dispatch(
-                changeOpenModeCart()
-            )
+            dispatch(changeOpenModeCart());
            setAdds(false);
         }, 1000);
     }

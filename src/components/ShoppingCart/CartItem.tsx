@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { DecreaseQuantity, IncreaseQuantity, removeCart } from "../../redux/Slices/cartSlice";
 import { IoCloseOutline } from "react-icons/io5";
+import { Bounce, toast } from 'react-toastify';
 
 type cartItemProps = {
   product: CartItemInterface;
@@ -16,6 +17,23 @@ const CartItem: React.FC<cartItemProps> = ({ product }) => {
   const { id, productImage, productQuantity, productSize, productTitle, productPrice } = product;
   const { cart } = useSelector((state: RootState) => state.cartSlice);
   const dispatch = useDispatch<AppDispatch>();
+
+  const RemoveNotify = () => toast.success('Removed From Cart', {
+    position: "top-right",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    transition: Bounce,
+  });
+
+  const handleRemoveCart = () => {
+    dispatch(removeCart(id))
+    RemoveNotify();
+  } 
 
   const handleIncrease = useCallback(() => {
     dispatch(
@@ -30,64 +48,67 @@ const CartItem: React.FC<cartItemProps> = ({ product }) => {
   }, [dispatch, product, productQuantity]);
 
   const cartItemClass = useMemo(() => {
-    return cart.length > 1 ? 'border-b py-6' : 'py-6'
+    return cart.length > 1 ? 'border-b py-6 last:border-none' : 'py-6'
   }, [cart.length > 1]);
 
   return (
-    <li className={cartItemClass}>
-      <div className="cart-item-wrapper">
-        <div className="flex gap-6">
-          <div className="cart-item-image flex-[30%]">
-            <figure>
-              <img
-                src={productImage}
-                alt={productTitle}
-                className="w-[110px] h-[110px] object-contain"
-              />
-            </figure>
-          </div>
+    <React.Fragment>
 
-          <div className="cart-item-content flex-[70%] h-full">
-            <Link to={`/product-detail/${productTitle.substring(0, 30)}:${id}`}>
-              <span className="text-black">
-                {productTitle.substring(0, 30)}...
-              </span>
-            </Link>
-
-            <div className="cart-item-size-info">
-              <span className="text-[#969696] text-sm">{productSize}</span>
+      <li className={cartItemClass}>
+        <div className="cart-item-wrapper">
+          <div className="flex gap-6">
+            <div className="cart-item-image flex-[30%]">
+              <figure>
+                <img
+                  src={productImage}
+                  alt={productTitle}
+                  className="w-[110px] h-[110px] object-contain"
+                />
+              </figure>
             </div>
 
-            <div className="cart-item-price">
-              <span className="text-[#e10600] font-bold">${productPrice}</span>
-            </div>
+            <div className="cart-item-content flex-[70%] h-full">
+              <Link to={`/product-detail/${productTitle.substring(0, 30)}:${id}`}>
+                <span className="text-black">
+                  {productTitle.substring(0, 30)}...
+                </span>
+              </Link>
 
-            <div className="cart-item-quantity">
-                <div className="flex items-center justify-between">
-                    <div className="quantity-wrapper mt-4">
-                      <button onClick={handleDecrease}>
-                        <LuMinus size={18} color="black" />
-                      </button>
+              <div className="cart-item-size-info">
+                <span className="text-[#969696] text-sm">{productSize}</span>
+              </div>
 
-                      <input
-                        type="text"
-                        value={productQuantity}
-                        readOnly
-                        className="quantity-input text-black"
-                      />
+              <div className="cart-item-price">
+                <span className="text-[#e10600] font-bold">${productPrice}</span>
+              </div>
 
-                      <button onClick={handleIncrease}>
-                        <GoPlus color="black" />
-                      </button>
-                    </div>
+              <div className="cart-item-quantity">
+                  <div className="flex items-center justify-between">
+                      <div className="quantity-wrapper mt-4">
+                        <button onClick={handleDecrease}>
+                          <LuMinus size={18} color="black" />
+                        </button>
 
-                    <IoCloseOutline color="black" className="mt-4" cursor="pointer" size={28} onClick={() => dispatch(removeCart(id))}/>
-                </div>
+                        <input
+                          type="text"
+                          value={productQuantity}
+                          readOnly
+                          className="quantity-input text-black"
+                        />
+
+                        <button onClick={handleIncrease}>
+                          <GoPlus color="black" />
+                        </button>
+                      </div>
+
+                      <IoCloseOutline color="black" className="mt-4" cursor="pointer" size={28} onClick={handleRemoveCart}/>
+                  </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </li>
+      </li>
+    </React.Fragment>
   );
 };
 

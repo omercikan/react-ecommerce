@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import React, { Dispatch, SetStateAction, useDeferredValue, useEffect, useMemo, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoCloseOutline } from "react-icons/io5";
 import SearchMenu from "../../components/Search/SearchMenu";
@@ -13,6 +13,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({ isOpenMenu, setMenu }) => {
   const [searchMenu, setSearchMenu] = useState<boolean>(false);
   const [searchValue, setSearcValue] = useState<string>("");
   const { data } = useFetchProductsQuery();
+  const defferedSearch = useDeferredValue(searchValue);
 
   //! Click the any element and closed search menu
   useEffect(() => {
@@ -35,7 +36,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({ isOpenMenu, setMenu }) => {
 
   const filteredSearch = useMemo(() => {
     return data?.filter((product) =>
-      product.title.trim().toLowerCase().includes(searchValue.trim().toLowerCase())
+      product.title.trim().toLowerCase().includes(defferedSearch.trim().toLowerCase())
     );
   }, [data, searchValue]);
 
@@ -56,7 +57,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({ isOpenMenu, setMenu }) => {
           className="w-full py-3 px-5 pe-16 rounded-3xl outline-none placeholder-gray-500"
           onClick={handleOpenMenu}
           value={searchValue}
-          onChange={(e) => data && setSearcValue(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => data && setSearcValue(e.target.value)}
         />
 
         <IoSearchOutline
@@ -70,7 +71,7 @@ const HeaderSearch: React.FC<HeaderSearchProps> = ({ isOpenMenu, setMenu }) => {
         <SearchMenu
           isOpenSearchMenu={searchMenu}
           filteredSearchData={filteredSearch}
-          searchValue={searchValue}
+          searchValue={defferedSearch}
         />
       </div>
     </div>
