@@ -28,7 +28,7 @@ const Likes: React.FC = () => {
         </div>
 
         <div className='mb-10 border-b pb-10 text-2xl uppercase flex justify-between items-center'>
-          <h1>My Favorites</h1>
+          <h1>My Favorites ({likes.length})</h1>
           <input type="text" placeholder='Search in my favorites' className='border outline-none text-sm py-2 px-3' onChange={(e) => setSearchTerm(e.target.value)}/>
         </div>
 

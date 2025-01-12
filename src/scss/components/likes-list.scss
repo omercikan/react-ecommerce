@@ -1,59 +1,35 @@
-// @media only screen and (max-width: 992px) {
-//     #like-item {
-
-//         img {
-//             height: 300px;
-//         }
-//     }
-// }
-
-// @media only screen and (max-width: 772px) {
-//     #like-item {
-//         img {
-//             height: 255px;
-//         }
-//     }
-// }
-
-// @media only screen and (max-width: 664px) {
-//     #like-item {
-
-//         img {
-//             height: 250px;
-//         }
-//     }
-// }
-
 @media only screen and (max-width: 640px) {
     #like-item {
-        div {
+        .like-item-content {
             margin-top: 0;
             width: 100% !important;
         }
     }
 }
 
+#like-item {
+    animation: .2s forwards ease-in-out;
+    transform: translateX(0px);
 
-// @media only screen and (max-width: 500px) {
-//     #like-item {
-//         img {
-//             height: 200px;
-//         }
-//     }
-// }
+    @keyframes remove {
+        from {
+            transform: translateY(0px);
+            opacity: 1;
+        }
 
-// @media only screen and (max-width: 430px) {
-//     #like-item {
-//         img {
-//             height: 150px;
-//         }
-//     }
-// }
+        to {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+    }
 
-// @media only screen and (max-width: 375px) {
-//     #like-item {
-//         img {
-//             height: 130px;
-//         }
-//     }
-// }
+    @keyframes singleRemove {
+        from {
+            transform: translateX(0px);
+        }
+
+        to {
+            transform: translateX(100%);
+        }
+    }
+}

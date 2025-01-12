@@ -10,17 +10,22 @@ export const likesSlice = createSlice({
     initialState,
     reducers: {
         addToLikes: (state: likesSliceInitialStateTypes, action: PayloadAction<Product>) => {
-            const findLikes = state.likes.findIndex((product) => product.id == action.payload.id);
+            const findLikesItem = state.likes.find((product) => product.id == action.payload.id);
 
-            if(findLikes > -1) {
-                state.likes = state.likes.slice(0, findLikes)
+            if(findLikesItem) {
+                state.likes = state.likes.filter((likeItem) => likeItem.id !== action.payload.id);
             } else {
                 state.likes = [...state.likes, action.payload]; 
             }
 
             localStorage.setItem('likes', JSON.stringify(state.likes));
+        },
+
+        removeLikeItem: (state: likesSliceInitialStateTypes, action: PayloadAction<number>) => {
+            state.likes = state.likes.filter((likeItem) => likeItem.id !== action.payload);
+            localStorage.setItem('likes', JSON.stringify(state.likes));
         }
     }
 });
 
-export const { addToLikes } = likesSlice.actions;
+export const { addToLikes, removeLikeItem } = likesSlice.actions;

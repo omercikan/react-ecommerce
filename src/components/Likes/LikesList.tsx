@@ -22,8 +22,8 @@ const LikesList: React.FC<likesListProps> = ({searchedLikes, searchTerm}) => {
     return searchedLikes.length > 0 ? (
       searchedLikes.map((product) => <LikeItem item={product} key={product.id} gridLayout={gridLayout} />)
     ) : (
-        <div className="flex items-center justify-center h-32 text-2xl w-max absolute left-1/2 -translate-x-1/2 text-red-950">
-          <p>😔 No results found. Try different keywords!</p>
+        <div className="flex items-center justify-center h-32 text-2xl max-sm:text-lg w-max absolute left-1/2 -translate-x-1/2 text-red-950">
+          <div>{ searchTerm.length > 0 ? <p><span className="block text-center text-3xl mb-4">😔</span>  No results found. Try different keywords!</p> : <p><span className="block text-center text-3xl mb-4">🔍</span> No liked products found.</p> } </div>
         </div>
       ) 
   }, [likes, gridLayout, searchedLikes]);
@@ -72,7 +72,8 @@ const LikesList: React.FC<likesListProps> = ({searchedLikes, searchTerm}) => {
       </div>
 
       {searchTerm.length > 0 && <p className="mt-10 text-blue-500 font-semibold uppercase rounded-md">search results {searchedLikes.length}</p>}  
-      <ul style={{display: "grid", gridTemplateColumns: `repeat(${gridLayout}, minmax(0, 1fr))`}} className='gap-3 my-10' id="likes-list">
+
+      <ul style={{display: "grid", gridTemplateColumns: `repeat(${gridLayout}, minmax(0, 1fr))`}} className='gap-3 my-10 overflow-x-hidden' id="likes-list">
         {likesList}
       </ul>
     </React.Fragment>
