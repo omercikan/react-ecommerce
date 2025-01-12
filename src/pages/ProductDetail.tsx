@@ -8,6 +8,7 @@ import ContentSizes from "../components/ProductDetail/DetailContentContainer/Con
 import ProductQuantity from "../components/ProductDetail/DetailContentContainer/ProductQuantity";
 import ApiErrorHandler from "../components/ApiErrorHandler";
 import AddToCart from "../components/ProductDetail/DetailContentContainer/AddToCart";
+import Seo from "../components/Seo/Seo";
 
 const ProductDetail: React.FC = () => {
   const params = useParams();
@@ -19,6 +20,12 @@ const ProductDetail: React.FC = () => {
 
   return (
     <React.Fragment>
+      <Seo 
+        title={`Trendly | ${matchedProduct?.title}`}
+        description="This is an amazing product from Trendly that provides top-quality features and benefits."
+        keywords="electronics, smartphone, product detail, buy online"
+      />
+
       {
         isError ? <ApiErrorHandler /> : (
         <div className="mt-[122px] max-lg:mt-[111px] px-4">
