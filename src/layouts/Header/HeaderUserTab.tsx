@@ -4,10 +4,12 @@ import { RiShoppingCart2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { changeOpenModeCart } from '../../redux/Slices/isOpenCartSlice';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderUserTab: React.FC = () => {
   const { cart } = useSelector((state: RootState) => state.cartSlice);
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const handleOpenCart = () => {
     document.body.style.overflowY = "hidden";
@@ -17,7 +19,7 @@ const HeaderUserTab: React.FC = () => {
   return (
     <div className="header-user-tab flex-[1]">
         <ul className='flex gap-10 text-white justify-end'>
-            <li className='cursor-pointer text-[#fdc525]'>
+            <li className='cursor-pointer text-[#fdc525]' onClick={() => navigate('/likes')}>
                 <FaRegHeart className='mx-auto hover:scale-110 transition-all duration-300' size={28} />
                 <span className='text-sm'>Favorites</span>
             </li>
