@@ -30,7 +30,7 @@ const AddToCart: React.FC<addToCartProps> = ({incomingID, matchedProduct, quanti
        
        setTimeout(() => {
             document.body.style.overflowY = "hidden"
-            toastify('Product Added To Cart')
+            toastify(`Product Added To Cart ${cart.length+1}`)
            
             dispatch(
                 addToCart({
@@ -50,9 +50,9 @@ const AddToCart: React.FC<addToCartProps> = ({incomingID, matchedProduct, quanti
 
     const handleAddLikes = () => {
         if(!findLikeItem) {
-            toastify('Product Added To Likes')
+            toastify(`Product Added To Likes (${likes.length})`)
         } else {
-            toastify("Product Removed From Likes")
+            toastify(`Product Removed From Likes (${likes.length})`)
         }
         
         dispatch(

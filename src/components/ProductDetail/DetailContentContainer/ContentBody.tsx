@@ -1,6 +1,7 @@
 import Skeleton from "@mui/material/Skeleton";
 import React from "react";
 import { productDetailComponentsProps } from "../../../types/types";
+import { Typography } from "@mui/material";
 
 const ContentBody: React.FC<productDetailComponentsProps> = ({
   matchedProduct,
@@ -12,7 +13,7 @@ const ContentBody: React.FC<productDetailComponentsProps> = ({
           {matchedProduct?.title}
         </strong>
       ) : (
-        <Skeleton className="w-[300px] max-sm:w-full" />
+        <Typography variant="h1"><Skeleton variant="text" animation="wave" height={50}/></Typography>
       )}
 
       {matchedProduct?.description ? (
@@ -20,9 +21,9 @@ const ContentBody: React.FC<productDetailComponentsProps> = ({
           {matchedProduct?.description}
         </p>
       ) : (
-        <Skeleton className="w-full" height={300} />
+        <Typography variant="subtitle1"><Skeleton height={120} animation="wave" /></Typography>
       )}
-      
+
       {matchedProduct?.price ? (
         <data
           value={matchedProduct?.price}
@@ -31,7 +32,7 @@ const ContentBody: React.FC<productDetailComponentsProps> = ({
           ${matchedProduct?.price}
         </data>
       ) : (
-        <Skeleton width={150} />
+        <Typography variant="h6" width={120}><Skeleton animation="wave" /></Typography>
       )}
     </div>
   );

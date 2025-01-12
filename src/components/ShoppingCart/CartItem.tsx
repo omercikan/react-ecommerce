@@ -20,7 +20,7 @@ const CartItem: React.FC<cartItemProps> = ({ product }) => {
 
   const handleRemoveCart = () => {
     dispatch(removeCart(id))
-    toastify('Removed From Cart')
+    toastify(`Removed From Cart (${cart.length})`)
   } 
 
   const handleIncrease = useCallback(() => {

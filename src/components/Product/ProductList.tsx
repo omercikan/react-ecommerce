@@ -11,11 +11,12 @@ const ProductList: React.FC = () => {
     const SortedProducts = useMemo(() => {
         return (
            data && [...data].sort(() => .5 - Math.random()).map((product) => (
-                <ProductItem  item={product} key={product.id} />
+                <ProductItem item={product} key={product.id}/>
             ))
         ) 
     }, [data]);
 
+    let skeletonArray = Array.from({length: 20}, ((_, index) => index));
     let dataContent;
 
     if(data) {
@@ -28,9 +29,18 @@ const ProductList: React.FC = () => {
 
     if(isFetching) {
         dataContent = ( 
-            <ul className='my-5 loading-list mt-[50px] container mx-auto'>  
+            <ul className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 max-sm-flex max-sm:flex-wrap sm:container mt-10 pb-10 mx-auto max-sm:mx-1'>  
                 {
-                    <Skeleton variant='rounded' animation="wave" className='loading-screen'/>
+                    skeletonArray.map((_, index) => (
+                        <li key={index} className='m-3 w-full max-sm:w-auto'>
+                            <Skeleton 
+                                variant='rectangular'
+                                height={511}
+                                animation="wave"
+                                sx={{borderRadius: "8px"}}
+                            />
+                        </li>
+                    ))
                 }
             </ul> 
         );
