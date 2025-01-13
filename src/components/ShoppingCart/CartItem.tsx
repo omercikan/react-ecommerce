@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { DecreaseQuantity, IncreaseQuantity, removeCart } from "../../redux/Slices/cartSlice";
 import { IoCloseOutline } from "react-icons/io5";
-import toastify from "../../customHooks/toastify";
+import toastify from "../../customHooks/useToastify";
 
 type cartItemProps = {
   product: CartItemInterface;
@@ -20,7 +20,7 @@ const CartItem: React.FC<cartItemProps> = ({ product }) => {
 
   const handleRemoveCart = () => {
     dispatch(removeCart(id))
-    toastify(`Removed From Cart (${cart.length})`)
+    toastify(`Product Removed From Cart (${cart.length -1})`)
   } 
 
   const handleIncrease = useCallback(() => {

@@ -7,7 +7,7 @@ import { Product } from '../../../types/types';
 import CircularProgress from '@mui/material/CircularProgress';
 import { changeOpenModeCart } from '../../../redux/Slices/isOpenCartSlice';
 import { addToLikes } from '../../../redux/Slices/likesSlice';
-import toastify from '../../../customHooks/toastify';
+import useToastify from '../../../customHooks/useToastify';
 
 type addToCartProps = {
     incomingID: number;
@@ -30,7 +30,7 @@ const AddToCart: React.FC<addToCartProps> = ({incomingID, matchedProduct, quanti
        
        setTimeout(() => {
             document.body.style.overflowY = "hidden"
-            toastify(`Product Added To Cart ${cart.length+1}`)
+            useToastify(`Product Added To Cart ${cart.length+1}`)
            
             dispatch(
                 addToCart({
@@ -50,9 +50,9 @@ const AddToCart: React.FC<addToCartProps> = ({incomingID, matchedProduct, quanti
 
     const handleAddLikes = () => {
         if(!findLikeItem) {
-            toastify(`Product Added To Likes (${likes.length})`)
+            useToastify(`Product Added To Favorites (${likes.length +1})`)
         } else {
-            toastify(`Product Removed From Likes (${likes.length})`)
+            useToastify(`Product Removed From Favorites (${likes.length -1})`)
         }
         
         dispatch(

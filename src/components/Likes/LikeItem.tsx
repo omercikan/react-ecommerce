@@ -3,8 +3,10 @@ import { Product } from "../../types/types";
 import { IoClose } from "react-icons/io5";
 import { IoEye } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeLikeItem } from "../../redux/Slices/likesSlice";
+import useToastify from "../../customHooks/useToastify";
+import { RootState } from "../../redux/store";
 
 type likeItemProps = {
   item: Product;
@@ -16,8 +18,10 @@ const LikeItem: React.FC<likeItemProps> = ({ item, gridLayout }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const likeItem = useRef<HTMLLIElement>(null);
+  const { likes } = useSelector((state: RootState) => state.likesSlice);
 
   const handleRemove = (): void => {
+    useToastify(`Product Removed From Favorites (${likes.length -1})`)
     setTimeout(() => {
       dispatch(removeLikeItem(id));
     }, 500);
