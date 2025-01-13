@@ -6,7 +6,9 @@ const Skeleton = lazy(() => import("@mui/material/Skeleton"))
 const ApiErrorHandler = lazy(() => import("../ApiErrorHandler"))
 
 const ProductList: React.FC = () => {
-    const { data, isFetching, isError } = useFetchProductsQuery();
+    const { data, isFetching, isError } = useFetchProductsQuery(undefined, {
+      refetchOnMountOrArgChange: false,
+    });
 
     const SortedProducts = useMemo(() => {
         return (
