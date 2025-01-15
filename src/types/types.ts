@@ -37,3 +37,7 @@ export interface CartItemInterface {
 export type likesSliceInitialStateTypes = {
   likes: Product[];
 }
+
+export type evaluationSliceInitialStateType = {
+  reviews: Product[];
+}
