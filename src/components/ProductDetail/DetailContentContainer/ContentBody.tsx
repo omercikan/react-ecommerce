@@ -16,6 +16,10 @@ const ContentBody: React.FC<productDetailComponentsProps> = ({
         <Typography variant="h1"><Skeleton variant="text" animation="wave" height={50}/></Typography>
       )}
 
+      <div className="evulation-link">
+        <button className="text-sm mt-2 inline-block text-gray-600 hover:underline">Add Review</button>
+      </div>
+
       {matchedProduct?.description ? (
         <p className="text-sm color-[#3c3c3c] mt-5">
           {matchedProduct?.description}

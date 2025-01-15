@@ -9,6 +9,7 @@ import ProductQuantity from "../components/ProductDetail/DetailContentContainer/
 import ApiErrorHandler from "../components/ApiErrorHandler";
 import AddToCart from "../components/ProductDetail/DetailContentContainer/AddToCart";
 import Seo from "../components/Seo/Seo";
+import ProductEvaluation from "../components/ProductDetail/ProductEvaluation";
 
 const ProductDetail: React.FC = () => {
   const params = useParams();
@@ -62,6 +63,8 @@ const ProductDetail: React.FC = () => {
               </div>
             </div>
           </div>
+
+          <ProductEvaluation matchedProduct={matchedProduct}/>
         </div>
         )
       }
