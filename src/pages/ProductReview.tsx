@@ -4,6 +4,7 @@ import { useFetchProductsQuery } from '../redux/Api/ProductApi';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { TiStarFullOutline } from "react-icons/ti";
+import ReviewCommentsList from '../components/ProductReview/ReviewCommentsList';
 
 const ProductReview: React.FC = () => {
     const params = useParams();
@@ -87,6 +88,12 @@ const ProductReview: React.FC = () => {
                         </div>
                     </div>
                 </div>
+
+                <ReviewCommentsList 
+                    matchedReviews={matchedReviews}
+                    productScoreStar={productScoreStar}
+                    productScoreEmptyStar={productScoreEmptyStar}
+                />
             </div>
         </div>
     )
