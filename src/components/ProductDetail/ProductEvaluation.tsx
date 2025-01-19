@@ -1,35 +1,52 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Product } from "../../types/types";
 import { IoCloseOutline } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
 import { addReview } from "../../redux/Slices/evaluationSlice";
 
 type ProductEvaluationProps = {
   matchedProduct: Product | undefined;
+  reviewModal: boolean;
+  setReviewModal: React.Dispatch<React.SetStateAction<boolean>>
+
 };
 
-const ProductEvaluation: React.FC<ProductEvaluationProps> = ({ matchedProduct }) => {
+const ProductEvaluation: React.FC<ProductEvaluationProps> = ({ matchedProduct, reviewModal, setReviewModal }) => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [clickIndex, setClickIndex] = useState<null | number>(null);
   const [commentProduct, setCommentProduct] = useState<string>("");
   const stars = [1, 2, 3, 4, 5];
   const dispatch = useDispatch<AppDispatch>();
-  const { reviews } = useSelector((state: RootState) => state.evaluationSlice);
 
-  console.log(reviews.filter((review) => review.category === matchedProduct?.category)); 
+  const handleAddComment = useCallback(() => {
+    dispatch(
+      addReview({
+        id: matchedProduct?.id,
+        image: matchedProduct?.image,
+        title: matchedProduct?.title,
+        category: matchedProduct?.category,
+        stars: clickIndex!+1,
+        comment: commentProduct
+      })
+    )
+    setTimeout(() => {
+      setCommentProduct("");
+      setClickIndex(null);
+    }, 500);
+  }, [matchedProduct, clickIndex, commentProduct, dispatch])
 
   return (
     <div
-      className="product-evaluation-container w-full h-screen fixed top-0 left-0 z-[21]"
+      className={`product-evaluation-container w-full h-screen fixed top-0 left-0 z-[21] ${reviewModal ? 'visible' : 'invisible'}`}
       style={{ background: "rgba(0,0,0, .6)" }}
     >
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[460px] max-sm:w-[95%] rounded-md bg-white border">
+      <div className={`product-evaluation-wrapper fixed z-20 w-[460px] max-sm:w-[95%] rounded-md bg-white border ${reviewModal ? 'active' : ''}`}>
         <header className="evaluation-header">
           <div className="flex items-center justify-between py-[14px] px-5 border-b">
             <h1 className="text-lg font-semibold">Rate The Product</h1>
-            <IoCloseOutline size={22} cursor="pointer" color="#66666" />
+            <IoCloseOutline size={22} cursor="pointer" color="#66666" onClick={() => setReviewModal(false)}/>
           </div>
         </header>
 
@@ -102,18 +119,7 @@ const ProductEvaluation: React.FC<ProductEvaluationProps> = ({ matchedProduct })
         <button
           className="bg-[#161880] hover:bg-[#22236d]d disabled:bg-gray-400 transition duration-500 text-white p-2 rounded-md w-[95%] mb-5 mx-auto block"
           disabled={clickIndex == null || !commentProduct}
-          onClick={() =>
-            dispatch(
-              addReview({
-                id: matchedProduct?.id,
-                image: matchedProduct?.image,
-                title: matchedProduct?.title,
-                category: matchedProduct?.category,
-                stars: clickIndex ? clickIndex+1 : clickIndex,
-                comment: commentProduct
-              })
-            )
-          }
+          onClick={handleAddComment}
         >
           Leave A Comment
         </button>

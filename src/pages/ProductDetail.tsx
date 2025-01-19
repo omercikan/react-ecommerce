@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useFetchProductsQuery } from "../redux/Api/ProductApi";
 import ProductImage from "../components/ProductDetail/ProductImage";
 import Breadcrumb from "../components/ProductDetail/Breadcrumb";
@@ -10,6 +10,7 @@ import ApiErrorHandler from "../components/ApiErrorHandler";
 import AddToCart from "../components/ProductDetail/DetailContentContainer/AddToCart";
 import Seo from "../components/Seo/Seo";
 import ProductEvaluation from "../components/ProductDetail/ProductEvaluation";
+import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
 
 const ProductDetail: React.FC = () => {
   const params = useParams();
@@ -18,6 +19,7 @@ const ProductDetail: React.FC = () => {
   const matchedProduct = data?.find((product) => product.id === incomingID);
   const [selectSize, setSelectSize] = useState<string>("XS");
   const [quantity, setQuantity] = useState(1);
+  const [reviewModal, setReviewModal] = useState<boolean>(false);
 
   return (
     <React.Fragment>
@@ -27,8 +29,7 @@ const ProductDetail: React.FC = () => {
         keywords="electronics, smartphone, product detail, buy online"
       />
 
-      {
-        isError ? <ApiErrorHandler /> : (
+      {isError ? <ApiErrorHandler /> : (
         <div className="mt-[122px] max-lg:mt-[111px] px-4">
           <Breadcrumb matchedProduct={matchedProduct} />
 
@@ -38,7 +39,7 @@ const ProductDetail: React.FC = () => {
                 <ProductImage matchedProduct={matchedProduct} />
 
                 <div className="detail-content-container flex-[60%]">
-                  <ContentBody matchedProduct={matchedProduct} />
+                  <ContentBody matchedProduct={matchedProduct} setReviewModal={setReviewModal} />
 
                   <ContentSizes
                     matchedProduct={matchedProduct}
@@ -63,11 +64,18 @@ const ProductDetail: React.FC = () => {
               </div>
             </div>
           </div>
-
-          <ProductEvaluation matchedProduct={matchedProduct}/>
+          
+          <ProductEvaluation matchedProduct={matchedProduct} setReviewModal={setReviewModal} reviewModal={reviewModal}/>
         </div>
-        )
-      }
+      )}
+
+      <div className="chat">
+        <div className="fixed bottom-6 right-6 bg-[#161880] rounded-full p-2">
+          <Link to={`/${matchedProduct?.title.substring(0, 30)}:${matchedProduct?.id}`}>
+            <HiOutlineChatBubbleOvalLeftEllipsis cursor="pointer" color="white" size={32} style={{ transform: "rotateY(190deg)" }}/>
+          </Link>
+        </div>
+      </div>
     </React.Fragment>
   );
 };

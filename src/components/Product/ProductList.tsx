@@ -18,7 +18,7 @@ const ProductList: React.FC = () => {
         ) 
     }, [data]);
 
-    let skeletonArray = Array.from({length: 20}, ((_, index) => index));
+    const skeletonArray = Array.from({length: 20}, ((_, index) => index));
     let dataContent;
 
     if(data) {

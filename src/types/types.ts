@@ -23,6 +23,7 @@ export type productItemPropsType = {
 
 export type productDetailComponentsProps = {
   matchedProduct: Product | undefined;
+  setReviewModal?: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 export interface CartItemInterface {
@@ -38,6 +39,15 @@ export type likesSliceInitialStateTypes = {
   likes: Product[];
 }
 
+export type evaluationProductType = {
+  category: string;
+  comment: string;
+  id: number;
+  image: string;
+  stars: number;
+  title: string;
+}
+
 export type evaluationSliceInitialStateType = {
-  reviews: Product[];
+  reviews: evaluationProductType[];
 }

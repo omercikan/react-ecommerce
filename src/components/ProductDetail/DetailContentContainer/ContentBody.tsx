@@ -3,9 +3,7 @@ import React from "react";
 import { productDetailComponentsProps } from "../../../types/types";
 import { Typography } from "@mui/material";
 
-const ContentBody: React.FC<productDetailComponentsProps> = ({
-  matchedProduct,
-}) => {
+const ContentBody: React.FC<productDetailComponentsProps> = ({ matchedProduct, setReviewModal }) => {
   return (
     <div className="detail-content-body">
       {matchedProduct?.title ? (
@@ -17,7 +15,7 @@ const ContentBody: React.FC<productDetailComponentsProps> = ({
       )}
 
       <div className="evulation-link">
-        <button className="text-sm mt-2 inline-block text-gray-600 hover:underline">Add Review</button>
+        <button className="text-sm mt-2 inline-block text-gray-600 hover:underline" onClick={() => setReviewModal && setReviewModal(true)}>Add Review</button>
       </div>
 
       {matchedProduct?.description ? (
