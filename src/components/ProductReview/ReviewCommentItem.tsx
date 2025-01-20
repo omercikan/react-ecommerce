@@ -4,32 +4,27 @@ import { TiStarFullOutline } from "react-icons/ti";
 
 type ReviewCommentItemProps = {
   review: evaluationProductType;
-  productScoreEmptyStar: number[];
-  productScoreStar: number[];
 };
 
-const ReviewCommentItem: React.FC<ReviewCommentItemProps> = ({
-  review,
-  productScoreStar,
-  productScoreEmptyStar,
-}) => {
-  const { comment, category } = review;
+const ReviewCommentItem: React.FC<ReviewCommentItemProps> = ({ review }) => {
+  const { stars, comment, category } = review;
+  const fullStars = Array.from({length: stars}, (_, item) => item)
+  const emptyStars = Array.from({length: 5 - stars}, (_, item) => item);
 
   return (
     <li className="w-1/2 max-lg:w-full">
       <ul className="flex mb-4">
-        {productScoreStar.map((_item, index) => (
+        {fullStars.map((_item, index) => (
           <li key={index}>
-            <TiStarFullOutline color="#fdc525" size={14} />
+            <TiStarFullOutline color="#fdc525"/>
           </li>
         ))}
 
-        {productScoreEmptyStar.length > 0 &&
-          productScoreEmptyStar.map((_item, index) => (
-            <li key={index}>
-              <TiStarFullOutline color="#dedede" size={14} />
-            </li>
-          ))}
+        {emptyStars.map((item, index) => (
+          <li key={index}>
+            <TiStarFullOutline color="#dedede"/>
+          </li>
+        ))}
       </ul>
 
       <div className="review-item-comment-content">

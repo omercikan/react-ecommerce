@@ -91,8 +91,6 @@ const ProductReview: React.FC = () => {
 
                 <ReviewCommentsList 
                     matchedReviews={matchedReviews}
-                    productScoreStar={productScoreStar}
-                    productScoreEmptyStar={productScoreEmptyStar}
                 />
             </div>
         </div>
