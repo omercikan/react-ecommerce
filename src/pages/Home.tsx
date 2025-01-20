@@ -2,6 +2,7 @@ import React from 'react'
 import ProductList from '../components/Product/ProductList'
 import SlideImage from '../components/Home/SlideImage'
 import Seo from '../components/Seo/Seo'
+import Categories from '../components/Home/Categories/Categories'
 
 const Home: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const Home: React.FC = () => {
       />
 
       <SlideImage />
+      <Categories />
       <ProductList />
     </div>
   )
